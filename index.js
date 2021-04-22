@@ -10,8 +10,8 @@ const promptQuestion = () => {
             type: 'list',
             message: "What is the work category?",
             name: "catagory",
-            choice: [
-                'Manger',
+            choices: [
+                'Manager',
                 'Engineer',
                 'Employee',
                 'Intern',
@@ -130,3 +130,24 @@ const promptIntern = () => {
         },
     ])
 }
+
+function questions() {
+    if (data.catagory === 'Manager') {
+        promptManage()
+    } else if (data.catagory === 'Engineer') {
+        promptEngineer()
+    } else if (data.catagory === 'Empoyee') {
+        promptEmployee()
+    } else if (data.catagory === 'Intern') {
+        promptIntern()
+    } else (init())
+}
+
+const init = () => {
+    promptQuestion()
+        .then(questions())
+        .then((data) => writeFileAsync('members.html', generateMarkdown(data)))
+        .catch((err) => console.error(err));
+};
+
+init()
