@@ -1,25 +1,38 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const util = require('util');
-const generateMarkdown = require('./Assets/generateMarkdown');
 
-const writeFileAsync = util.promisify(fs.writeFile);
-const promptQuestion = () => {
-    return inquirer.prompt([
-        {
-            type: 'list',
-            message: "What is the work category?",
-            name: "catagory",
-            choices: [
-                'Manager',
-                'Engineer',
-                'Employee',
-                'Intern',
-                'No more employees to add'
-            ]
-        }
-    ])
-}
+const Employee = require('./lib/employee');
+const Manager = require('./lib/manager');
+const Engineer = require('./lib/engineer');
+const Intern = require('./lib/intern');
+const generateMarkdown = require('./src/generateMarkdown');
+const { writeFile } = require('node:fs');
+const engineer = require('./lib/engineer');
+
+const employees = []
+
+// const generateHTML
+// const writeFile
+
+
+
+// const writeFileAsync = util.promisify(fs.writeFile);
+// const promptQuestion = () => {
+//     return inquirer.prompt([
+//         {
+//             type: 'list',
+//             message: "What is the work category?",
+//             name: "catagory",
+//             choices: [
+//                 'Manager',
+//                 'Engineer',
+//                 'Employee',
+//                 'Intern',
+//                 'No more employees to add'
+//             ]
+//         }
+//     ])
+// }
 
 const promptManage = () => {
     return inquirer.prompt([
@@ -50,6 +63,35 @@ const promptManage = () => {
     ])
 }
 
+const addEmployee = () => {
+    return inquirer.prompt([
+        {
+            type: 'list',
+            message: "What would you like to do next?",
+            name: "catagory",
+            choices: [
+                'Add an engineer',
+                'Add an intern',
+                'No more employees to add'
+            ]
+        }
+    ])
+        .then(data => {
+            switch (data.catagory) {
+                case 'Add an engineer':
+                    promptEngineer();
+                    break;
+                case 'Add an inter':
+                    promptIntern();
+                    break;
+                case 'No more employees to add':
+                    const pageHTML = placeholder()
+                    writeFile(pageHTML);
+                    break;
+            }
+        })
+}
+
 const promptEngineer = () => {
     return inquirer.prompt([
         {
@@ -77,30 +119,15 @@ const promptEngineer = () => {
             validate: (value) => { if (value) { return true } else { return "Please enter value" } },
         },
     ])
-}
-
-const promptEmployee = () => {
-    return inquirer.prompt([
-        {
-            type: "input",
-            message: "What is the Employee's name?",
-            name: "name",
-            validate: (value) => { if (value) { return true } else { return "Please enter value" } },
-        },
-        {
-            type: "input",
-            message: "What is the Employee's employee id?",
-            name: "id",
-            validate: (value) => { if (value) { return true } else { return "Please enter value" } },
-        },
-        {
-            type: "input",
-            message: "What is the Employee's email?",
-            name: "email",
-            validate: (value) => { if (value) { return true } else { return "Please enter value" } },
-        },
-    ])
-}
+    .then(data => {
+        const team = new Engineer(data);
+        console.log(data);
+        console.log(team.role);
+        employees.push(team);
+        console.log(employees);
+        addEmployee();
+    })
+};
 
 const promptIntern = () => {
     return inquirer.prompt([
@@ -129,25 +156,31 @@ const promptIntern = () => {
             validate: (value) => { if (value) { return true } else { return "Please enter value" } },
         },
     ])
-}
-
-function questions() {
-    if (data.catagory === 'Manager') {
-        promptManage()
-    } else if (data.catagory === 'Engineer') {
-        promptEngineer()
-    } else if (data.catagory === 'Empoyee') {
-        promptEmployee()
-    } else if (data.catagory === 'Intern') {
-        promptIntern()
-    } else (init())
+    .then(data => {
+        const team = new Intern(data);
+        console.log(data);
+        console.log(team.role);
+        employees.push(team);
+        console.log(employees);
+        addEmployee();
+    })
 }
 
 const init = () => {
-    promptQuestion()
-        .then(questions())
-        .then((data) => writeFileAsync('members.html', generateMarkdown(data)))
-        .catch((err) => console.error(err));
+    return inquirer.prompt(promptManage);
 };
 
 init()
+    .then(data => {
+        return new Manager(data);
+    })
+    .then(data => {
+        const newManager = data;
+        console.log(data);
+        employees.push(newManager);
+        console.log(employees);
+    })
+    .then(addEmployee)
+    .catch(err => {
+        console.log(err);
+    })
