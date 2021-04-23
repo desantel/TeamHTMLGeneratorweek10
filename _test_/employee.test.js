@@ -1,4 +1,3 @@
-const {test, expect} = require('@jest/globals');
 const Employee = require('../lib/employee');
 
 test ('creates an Employee object', () => {
@@ -6,7 +5,7 @@ test ('creates an Employee object', () => {
         name: 'Maria',
         id: 123456,
         email:'maria123456@email.com',
-        officeNumber: 777555333
+        officeNumber: '777555333'
     };
 
     const employee = new Employee(data);
@@ -22,7 +21,7 @@ test ('gets Employee name', () => {
         name: 'Maria',
         id: 123456,
         email:'maria123456@email.com',
-        officeNumber: 777555333
+        officeNumber: '777555333'
     };
 
     const employee = new Employee(data);
@@ -35,7 +34,7 @@ test ('gets Employee id', () => {
         name: 'Maria',
         id: 123456,
         email:'maria123456@email.com',
-        officeNumber: 777555333
+        officeNumber: '777555333'
     };
 
     const employee = new Employee(data);
@@ -48,7 +47,7 @@ test ('gets Employee email', () => {
         name: 'Maria',
         id: 123456,
         email:'maria123456@email.com',
-        officeNumber: 777555333
+        officeNumber: '777555333'
     };
 
     const employee = new Employee(data);
@@ -61,7 +60,7 @@ test ('gets Employee role', () => {
         name: 'Maria',
         id: 123456,
         email:'maria123456@email.com',
-        officeNumber: 777555333
+        officeNumber: '777555333'
     };
 
     const employee = new Employee(data);

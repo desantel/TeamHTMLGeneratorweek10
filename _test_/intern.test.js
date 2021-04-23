@@ -1,4 +1,3 @@
-const {test, expect} = require('@jest/globals');
 const Intern = require('../lib/intern');
 
 test ('gets GitHub username', () => {

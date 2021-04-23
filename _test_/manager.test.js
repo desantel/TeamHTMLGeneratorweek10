@@ -1,4 +1,3 @@
-const {test, expect} = require('@jest/globals');
 const Manager = require('../lib/manager');
 
 
@@ -7,7 +6,7 @@ test ('gets Employee office number', () => {
         name: 'Maria',
         id: 123456,
         email:'maria123456@email.com',
-        officeNumber: 777555333
+        officeNumber: '777555333'
     };
 
     const manager = new Manager(data);
@@ -21,7 +20,7 @@ test ('gets role', () => {
         name: 'Maria',
         id: 123456,
         email:'maria123456@email.com',
-        userName: 'maria'
+        officeNumber: '777555333'
     };
 
     const manager = new Manager(data);

@@ -6,36 +6,13 @@ const Manager = require('./lib/manager');
 const Engineer = require('./lib/engineer');
 const Intern = require('./lib/intern');
 const generateMarkdown = require('./src/generateMarkdown');
-const { writeFile } = require('node:fs');
-const engineer = require('./lib/engineer');
+const writeFile = require('./src/webPage');
 
-const employees = []
-
-// const generateHTML
-// const writeFile
+const employees = [];
 
 
 
-// const writeFileAsync = util.promisify(fs.writeFile);
-// const promptQuestion = () => {
-//     return inquirer.prompt([
-//         {
-//             type: 'list',
-//             message: "What is the work category?",
-//             name: "catagory",
-//             choices: [
-//                 'Manager',
-//                 'Engineer',
-//                 'Employee',
-//                 'Intern',
-//                 'No more employees to add'
-//             ]
-//         }
-//     ])
-// }
-
-const promptManage = () => {
-    return inquirer.prompt([
+const promptManage = [
         {
             type: "input",
             message: "What is the Manager's name?",
@@ -60,8 +37,7 @@ const promptManage = () => {
             name: "officeNumber",
             validate: (value) => { if (value) { return true } else { return "Please enter value" } },
         },
-    ])
-}
+    ]
 
 const addEmployee = () => {
     return inquirer.prompt([
@@ -81,12 +57,12 @@ const addEmployee = () => {
                 case 'Add an engineer':
                     promptEngineer();
                     break;
-                case 'Add an inter':
+                case 'Add an intern':
                     promptIntern();
                     break;
                 case 'No more employees to add':
-                    const pageHTML = placeholder()
-                    writeFile(pageHTML);
+                    const Html = generateMarkdown(employees)
+                    writeFile(Html);
                     break;
             }
         })
@@ -115,7 +91,7 @@ const promptEngineer = () => {
         {
             type: "input",
             message: "What is the Engineer's Github username?",
-            name: "gitHub",
+            name: "userName",
             validate: (value) => { if (value) { return true } else { return "Please enter value" } },
         },
     ])
@@ -152,7 +128,7 @@ const promptIntern = () => {
         {
             type: "input",
             message: "What is the Intern's school name?",
-            name: "schoolName",
+            name: "school",
             validate: (value) => { if (value) { return true } else { return "Please enter value" } },
         },
     ])
