@@ -1,28 +1,30 @@
-const promptManage = () => {
-    return inquirer.prompt([
-        {
-            type: "input",
-            message: "What is the Manager's name?",
-            name: "name",
-            validate: (value) => { if (value) { return true } else { return "Please enter value" } },
-        },
-        {
-            type: "input",
-            message: "What is the Manager's employee id?",
-            name: "id",
-            validate: (value) => { if (value) { return true } else { return "Please enter value" } },
-        },
-        {
-            type: "input",
-            message: "What is the Manager's email?",
-            name: "email",
-            validate: (value) => { if (value) { return true } else { return "Please enter value" } },
-        },
-        {
-            type: "input",
-            message: "What is the Manager's office number?",
-            name: "officeNumber",
-            validate: (value) => { if (value) { return true } else { return "Please enter value" } },
-        },
-    ])
-}
+const {test, expect} = require('@jest/globals');
+const Manager = require('../lib/manager');
+
+
+test ('gets Employee office number', () => {
+    const data = {
+        name: 'Maria',
+        id: 123456,
+        email:'maria123456@email.com',
+        officeNumber: 777555333
+    };
+
+    const manager = new Manager(data);
+
+    expect(manager.officeNumber).toBe('777555333');
+});
+
+
+test ('gets role', () => {
+    const data = {
+        name: 'Maria',
+        id: 123456,
+        email:'maria123456@email.com',
+        userName: 'maria'
+    };
+
+    const manager = new Manager(data);
+
+    expect(manager.role).toBe('Manager');
+});
