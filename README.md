@@ -22,6 +22,7 @@ Must have node.js to use!  After node.js is installed, fork from desantel repo o
   
 ## Usage
 In the same terminal, type in node index.js and answer prompted questions.
+[Video Link](https://drive.google.com/file/d/1LgUFodxx4X13OfLfIPfqvAmPiXjj8D-6/view)
 ![First](./src/node.png)
 ![Second](./src/step2.png)
 ![Third](./src/step3.png)
