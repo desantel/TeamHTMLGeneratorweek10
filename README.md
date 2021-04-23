@@ -25,7 +25,7 @@ In the same terminal, type in node index.js and answer prompted questions.
 ![First](./src/node.png)
 ![Second](./src/step2.png)
 ![Third](./src/step3.png)
-![Final](./src/result.png)
+![Final](./src/result.jpg)
   
 ## How to Test
 Go into the _test_ folder in your terminal and type in npm run test.  This will run tests with in the terminal
